@@ -1,0 +1,8 @@
+package pojo;
+
+import java.util.List;
+
+public class EcomOrderdetails {
+
+	private List<OrderDetails> orders;
+}

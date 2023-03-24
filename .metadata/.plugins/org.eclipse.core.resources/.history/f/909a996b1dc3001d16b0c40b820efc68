@@ -1,0 +1,60 @@
+package demo;
+
+
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+
+import static io.restassured.RestAssured.*;
+//import static org.hamcrest.Matchers.*;
+
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import File.ReUsableMethods;
+import File.payload;
+
+public class DynamicJson {
+	
+	
+	//Add book
+	@Test(dataProvider = "BookData" )
+	public void AddBook(String isbn, String aisle)
+	{
+		RestAssured.baseURI = "http://216.10.245.166";
+		String response = given().header("Content-Type","application/json")
+		.body(payload.Addbook(isbn,aisle)).when().post("Library/Addbook.php ")
+		.then().log().all().assertThat().statusCode(200)
+		.extract().response().asString();
+		
+		JsonPath js = ReUsableMethods.rawToJson(response);
+		String id = js.getString("ID");
+		System.out.println(id);
+		
+	}
+	
+	
+	//Delete BOOK
+	public void DeleteBook(String id)
+	{
+	RestAssured.baseURI = "http://216.10.245.166";
+	String response = given().header("Content-Type","application/json")
+	.body(payload.Deletebook(id)).when().post("Library/DeleteBook.php")
+	.then().log().all().assertThat().statusCode(200)
+	.extract().response().asString();
+	
+	JsonPath js = ReUsableMethods.rawToJson(response);
+	String id = js.getString("ID");
+	System.out.println(id);
+
+	}
+	
+	
+	@DataProvider(name = "BookData")
+	public Object[][] getdate()
+	{
+		//array=collection of elements
+		//multidimensional array= collection of arrays
+		
+		return new Object[][] {{"mjp","996"},{"mjp","997"},{"mjp","998"}};
+	}
+}

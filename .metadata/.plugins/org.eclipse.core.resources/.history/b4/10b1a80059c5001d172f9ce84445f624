@@ -1,0 +1,28 @@
+package demo;
+
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import pojo.EcomLoginApiPOJO;
+import pojo.EcomloginResponce;
+
+import static io.restassured.RestAssured.*;
+public class EcomApiTest {
+
+	public static void main(String[] args) {
+			//building Spec builder for Reusable Base URI
+			RequestSpecification req = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").setContentType(ContentType.JSON).build();
+			
+			EcomLoginApiPOJO loginCred = new EcomLoginApiPOJO();
+			loginCred.setUserEmail("prasannamj23@gmail.com");
+			loginCred.setUserPassword("Qwerty@1");
+			
+			RequestSpecification loginreq = given().log().all().spec(req).body(loginCred);
+			
+			EcomloginResponce EcomloginResponce= loginreq.when().post("/api/ecom/auth/login").then().log().all().extract().as(EcomloginResponce.class);
+	
+			System.out.println(EcomloginResponce.getToken());
+			System.out.println(EcomloginResponce.getUserId());
+	}
+
+}

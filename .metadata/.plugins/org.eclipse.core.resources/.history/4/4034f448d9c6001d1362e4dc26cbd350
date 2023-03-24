@@ -1,0 +1,6 @@
+package resourses;
+
+//enum is a special class in java which has collection of constants/methods
+public enum ApiResources {
+
+}

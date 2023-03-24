@@ -1,0 +1,19 @@
+package cucumber.Options;
+
+
+import org.junit.runner.RunWith;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+@RunWith(Cucumber.class)
+@CucumberOptions(
+		features = "src/test/java/feature",
+		glue= {"stepDefination"},
+		tags= "@DeletePlace",
+		plugin = "json:target/jsonReports/cucumber-reports.json"
+		
+		)
+public class TestRunner {
+
+	//run through cmd promt
+	//project location> mvn test -Dcucumber.options="--tags "@Addplace" -> for without tags
+}

@@ -1,0 +1,11 @@
+package pojo;
+
+public class EcomloginResponce {
+
+
+		String token;
+		String userId;
+		String message;
+	
+
+}

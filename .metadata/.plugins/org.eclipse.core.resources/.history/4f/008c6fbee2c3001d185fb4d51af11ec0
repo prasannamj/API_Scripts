@@ -1,0 +1,32 @@
+package demo;
+
+import io.restassured.RestAssured;
+import io.restassured.filter.session.SessionFilter;
+
+import static io.restassured.RestAssured.*;
+
+public class JiraTest {
+
+	public static void main(String[]args)
+	{
+		RestAssured.baseURI = "http://localhost:8080/";
+		SessionFilter session = new SessionFilter();
+		//login Api
+		String response = given().header("Content-Type","application/json").body("{ \"username\": \"prasannamj23\", \"password\": \"9980240110\" }")
+		.log().all().when().post("/rest/auth/1/session").then().extract().response().asString();
+		
+		//Add comment
+		given().pathParam("key", "10002").header("Content-Type","application/json")
+		.body("{\r\n"
+				+ "    \"body\": \"Hey i have Commented from Rest Api\",\r\n"
+				+ "    \"visibility\": {\r\n"
+				+ "        \"type\": \"role\",\r\n"
+				+ "        \"value\": \"Administrators\"\r\n"
+				+ "    }\r\n"
+				+ "}").when().post("/rest/api/2/issue/{key}/comment")
+	
+	
+	
+	
+	}
+}

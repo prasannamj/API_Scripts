@@ -1,0 +1,91 @@
+package stepDefination;
+
+import static io.restassured.RestAssured.given;
+
+import static org.testng.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
+import pojo.AddPlaceSerialization;
+import pojo.LocationSerialization;
+
+public class StepDefination {
+
+	RequestSpecification res;
+	ResponseSpecification resspec ;
+	Response response ;
+	
+	@Given("Add place payload")
+	public void add_place_payload() {
+		// TODO Auto-generated method stub
+//		RestAssured.baseURI="https://rahulshettyacademy.com";
+
+		AddPlaceSerialization p =new AddPlaceSerialization();
+		p.setAccuracy(50);
+		p.setAddress("29, side layout, cohen 09");
+		p.setLanguage("French-IN");
+		p.setPhone_number("(+91) 983 893 3937");
+		p.setWebsite("https://rahulshettyacademy.com");
+		p.setName("Frontline house");
+		List<String> myList =new ArrayList<String>();
+		myList.add("shoe park");
+		myList.add("shop");
+
+		p.setTypes(myList);
+		LocationSerialization l =new LocationSerialization();
+		l.setLat(-38.383494);
+		l.setLng(33.427362);
+		p.setLocation(l);
+		
+		
+		//adding spec builder for reusable things like URI,Headers etc 
+		 		RequestSpecification req =new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").addQueryParam("key", "qaclick123")
+				 .setContentType(ContentType.JSON).build();
+				  
+				  //for response
+				  resspec =new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
+				  res=given().spec(req)
+				 .body(p);
+
+
+
+
+	}
+	
+	@When("user calls {string} with post Http Request")
+	public void user_calls_with_post_http_request(String string) {
+
+		 response =res.when().post("/maps/api/place/add/json").
+		 then().spec(resspec).extract().response();
+	}
+	
+	
+	@Then("the Api call got success with status code {int}")
+	public void the_api_call_got_success_with_status_code(Integer int1) {
+		
+		assertEquals(response.statusCode(), 200);
+		
+	}
+	@Then("{string} in response body is {string}")
+	public void in_response_body_is(String Keyvalue, String Expectedvalue) {
+
+		 String responseString=response.asString();
+//		 System.out.println(responseString);
+		 JsonPath js = new JsonPath(responseString);
+		 assertEquals(js.get(Keyvalue),Expectedvalue);
+	}
+
+
+
+}

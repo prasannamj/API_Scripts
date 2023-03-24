@@ -1,0 +1,18 @@
+package demo;
+
+import File.payload;
+import io.restassured.path.json.JsonPath;
+
+public class ComplexJsonParse {
+
+	
+	public static void main(String[] args)
+	{
+		JsonPath js = new JsonPath(payload.courseprice());
+		
+		//print the number of Courses return by Apis
+		
+		int Count = js.getInt("courses.size()");
+		System.out.println(Count);
+	}
+}

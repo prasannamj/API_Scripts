@@ -1,0 +1,6 @@
+package resourses;
+
+//
+public enum ApiResources {
+
+}

@@ -1,0 +1,44 @@
+package demo;
+
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import pojo.EcomLoginApiPOJO;
+import pojo.EcomloginResponce;
+
+import static io.restassured.RestAssured.*;
+public class EcomApiTest {
+
+	public static void main(String[] args) {
+			//building Spec builder for Reusable Base URI
+			RequestSpecification req = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").setContentType(ContentType.JSON).build();
+			
+			//POJO class for login credetials
+			EcomLoginApiPOJO loginCred = new EcomLoginApiPOJO();
+			loginCred.setUserEmail("prasannamj23@gmail.com");
+			loginCred.setUserPassword("Qwerty@1");
+			
+			//login request sending
+			RequestSpecification loginreq = given().log().all().spec(req).body(loginCred);
+			
+			//getting login response
+			EcomloginResponce EcomloginResponce= loginreq.when().post("/api/ecom/auth/login").then().log().all().extract().as(EcomloginResponce.class);
+	
+			String token = EcomloginResponce.getToken();
+			String Userid =EcomloginResponce.getUserId();
+			
+			
+			//Add product
+			RequestSpecification AddProductBaseRequest = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com")
+					.addHeader("Authorization", token).build();
+			
+			given().log().all().spec(AddProductBaseRequest).param("productName", "qwerty")
+			.param("productAddedBy", "Userid")
+			.param("productName", "qwerty")
+			.param("productName", "qwerty")
+			.param("productName", "qwerty")
+			.param("productName", "qwerty")
+			.param("productName", "qwerty");
+	}
+
+}

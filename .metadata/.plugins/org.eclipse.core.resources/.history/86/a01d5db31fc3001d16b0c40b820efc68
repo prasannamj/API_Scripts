@@ -1,0 +1,135 @@
+package demo;
+
+
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+
+import static io.restassured.RestAssured.*;
+//import static org.hamcrest.Matchers.*;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import File.ReUsableMethods;
+import File.payload;
+
+public class DynamicJson {
+	
+	
+	//Add book
+	@Test(dataProvider = "BookData" ,priority = 1)
+	public void AddBook(String isbn, String aisle)
+	{
+		RestAssured.baseURI = "http://216.10.245.166";
+		String response = given().header("Content-Type","application/json")
+		.body(payload.Addbook(isbn,aisle)).when().post("Library/Addbook.php ")
+		.then().log().all().assertThat().statusCode(200)
+		.extract().response().asString();
+		
+		JsonPath js = ReUsableMethods.rawToJson(response);
+		String id = js.getString("ID");
+		System.out.println(id);
+		
+	}
+	
+	@Test(dataProvider = "BookID",priority = 2)
+	//Delete BOOK
+	public void DeleteBook(String id)
+	{
+	RestAssured.baseURI = "http://216.10.245.166";
+	String response1 = given().header("Content-Type","application/json")
+	.body(payload.Deletebook(id)).when().post("Library/DeleteBook.php")
+	.then().log().all().assertThat().statusCode(200)
+	.extract().response().asString();
+	
+	JsonPath js = ReUsableMethods.rawToJson(response1);
+	String msg = js.getString("msg");
+	System.out.println(msg);
+
+	}
+	
+	
+	
+	
+	
+	
+	//Static Json file
+	
+	public class StaticJson {
+
+		@Test
+
+		public void addBook() throws IOException
+
+
+
+		{
+
+
+
+		RestAssured.baseURI="http://216.10.245.166";
+
+		Response resp=given().
+
+		header("Content-Type","application/json").
+
+		body(GenerateStringFromResource("C:\\Users\\rahul\\Documents\\Addbookdetails.json")).
+
+		when().
+
+		post("/Library/Addbook.php").
+
+		then().assertThat().statusCode(200).
+
+		extract().response();
+
+		JsonPath js= ReusableMethods.rawToJson(resp);
+
+		   String id=js.get("ID");
+
+		   System.out.println(id);
+
+		   
+
+		   //deleteBOok
+
+		}
+
+		public String GenerateStringFromResource(String path) throws IOException 
+		{
+		    return new String(Files.readAllBytes(Paths.get(path)));
+		}
+
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@DataProvider(name = "BookData")
+	public Object[][] getdate()
+	{
+		//array=collection of elements
+		//multidimensional array= collection of arrays
+		
+		return new Object[][] {{"mjp","996"},{"mjp","997"},{"mjp","998"}};
+	}
+	
+	@DataProvider(name = "BookID")
+	public Object [][] getID()
+	{
+		return new Object[][] {{"mjp996"},{"mjp997"},{"mjp998"}};
+	}
+}

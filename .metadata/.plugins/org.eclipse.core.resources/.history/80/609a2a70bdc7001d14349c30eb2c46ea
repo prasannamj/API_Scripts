@@ -1,0 +1,34 @@
+package Datadriven;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Iterator;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class datadriven {
+
+	public static void main(String[] args) throws IOException {
+		
+		
+		FileInputStream fs = new FileInputStream("C:\\Users\\ADMIN\\Downloads\\ExcelData.xlsx");
+		XSSFWorkbook book = new XSSFWorkbook(fs);
+		int sheets = book.getNumberOfSheets();
+		for(int i =0;i<sheets;i++)
+		{
+			if(book.getSheetName(i).equalsIgnoreCase("testdata"))
+			{
+				XSSFSheet sheet = book.getSheetAt(i);
+				
+			//identify Testcase column by scanning first row 
+				Iterator<Row> row= sheet.iterator();
+				Row firstrow = row.next();
+
+			}
+		}
+
+	}
+
+}

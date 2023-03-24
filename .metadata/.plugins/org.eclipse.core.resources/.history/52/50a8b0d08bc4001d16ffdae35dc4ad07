@@ -1,0 +1,13 @@
+package pojo;
+
+import java.util.List;
+
+public class courses {
+	
+
+	private List<webAutomation> webAutomation;
+	private List<mobile> mobile;
+	private List<Api> Api;
+
+
+}

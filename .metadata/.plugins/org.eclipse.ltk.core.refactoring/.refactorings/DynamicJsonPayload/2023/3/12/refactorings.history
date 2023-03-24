@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements to &apos;ApiFramework/src/main/java/pojo&apos;&#x0D;&#x0A;- Original project: &apos;DynamicJsonPayload&apos;&#x0D;&#x0A;- Destination element: &apos;ApiFramework/src/main/java/pojo&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     pojo.AddPlaceSerialization.java&#x0D;&#x0A;     pojo.LocationSerialization.java" description="Copy compilation units" destination="=ApiFramework/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;pojo" element1="/src\/test\/java=/optional=/true=/=/maven.pomderived=/true=/=/test=/true=/&lt;pojo{AddPlaceSerialization.java" element2="/src\/test\/java=/optional=/true=/=/maven.pomderived=/true=/=/test=/true=/&lt;pojo{LocationSerialization.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1679208387378" units="2" version="1.0"/>
+</session>

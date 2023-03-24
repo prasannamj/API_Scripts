@@ -1,0 +1,29 @@
+package pojo;
+
+public class courses {
+	
+
+	private webAutomation webAutomation;
+	private mobile mobile;
+	private Api Api;
+
+	public pojo.webAutomation getWebAutomation() {
+		return webAutomation;
+	}
+	public void setWebAutomation(pojo.webAutomation webAutomation) {
+		this.webAutomation = webAutomation;
+	}
+	public pojo.mobile getMobile() {
+		return mobile;
+	}
+	public void setMobile(pojo.mobile mobile) {
+		this.mobile = mobile;
+	}
+	public String getApi() {
+		return Api;
+	}
+	public void setApi(String api) {
+		Api = api;
+	}
+
+}

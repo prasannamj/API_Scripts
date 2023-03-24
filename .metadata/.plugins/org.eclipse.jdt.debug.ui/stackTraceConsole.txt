@@ -1,0 +1,17 @@
+java.lang.SecurityException: class "org.hamcrest.Matchers"'s signer information does not match signer information of other classes in the same package
+	at java.base/java.lang.ClassLoader.checkCerts(ClassLoader.java:1158)
+	at java.base/java.lang.ClassLoader.preDefineClass(ClassLoader.java:902)
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1010)
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:150)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:862)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:760)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:681)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:639)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520)
+	at io.restassured.filter.log.ResponseLoggingFilter.<init>(ResponseLoggingFilter.java:73)
+	at io.restassured.filter.log.ResponseLoggingFilter.logResponseTo(ResponseLoggingFilter.java:182)
+	at resourses.Utiles.RequestSpecification(Utiles.java:31)
+	at stepDefination.StepDefination.add_place_payload_with(StepDefination.java:41)
+	at stepDefination.Hooks.beforeScenario(Hooks.java:16)
+
